@@ -30,5 +30,11 @@ MongoClient.connect(
       .count((err, result) => {
         console.log(result);
       });
+
+    db.collection('users')
+      .find({ compleated: true })
+      .count((err, result) => {
+        console.log(result);
+      });
   }
 );
