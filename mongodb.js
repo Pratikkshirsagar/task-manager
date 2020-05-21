@@ -17,24 +17,40 @@ MongoClient.connect(
 
     const db = client.db(databaseName);
 
-    // db.collection('users').findOne({ name: 'Pratik' }, (error, user) => {
-    //   if (error) {
-    //     return console.log('Unable to fetch user');
-    //   }
+    // update the document
+    const updatePromise = db.collection('users').updateOne(
+      {
+        _id: new ObjectID('5ec5680529536b24a0f7d5ac'),
+      },
+      {
+        $set: {
+          name: 'Mike',
+        },
+      }
+    );
 
-    //   console.log(user);
-    // });
+    updatePromise
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {});
 
     db.collection('users')
-      .find({ age: 24 })
-      .count((err, result) => {
-        console.log(result);
-      });
-
-    db.collection('users')
-      .find({ compleated: true })
-      .count((err, result) => {
-        console.log(result);
+      .updateMany(
+        {
+          compleated: true,
+        },
+        {
+          $set: {
+            compleated: false,
+          },
+        }
+      )
+      .then((result) => {
+        console.log(result.modifiedCount);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 );
