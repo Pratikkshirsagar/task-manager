@@ -17,12 +17,18 @@ MongoClient.connect(
 
     const db = client.db(databaseName);
 
-    db.collection('users').findOne({ name: 'Pratik' }, (error, user) => {
-      if (error) {
-        return console.log('Unable to fetch user');
-      }
+    // db.collection('users').findOne({ name: 'Pratik' }, (error, user) => {
+    //   if (error) {
+    //     return console.log('Unable to fetch user');
+    //   }
 
-      console.log(user);
-    });
+    //   console.log(user);
+    // });
+
+    db.collection('users')
+      .find({ age: 24 })
+      .count((err, result) => {
+        console.log(result);
+      });
   }
 );
